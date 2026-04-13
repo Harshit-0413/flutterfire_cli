@@ -266,7 +266,8 @@ class Reconfigure extends FlutterFireCommand {
         dartConfig.entries.map<Future<List<ConfigFileWrite>>>((entry) {
       final path = entry.key;
       final map = entry.value as Map<String, dynamic>;
-      final configurations = map[kConfigurations] as Map<String, dynamic>;
+      final configurations = map[kConfigurations] as Map<String, dynamic>?;
+      if (configurations == null) return Future.value([]);
       final projectId = map[kProjectId] as String;
 
       final configWrite = ConfigFileWrite(
